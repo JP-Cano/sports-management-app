@@ -1,6 +1,9 @@
 Dockerfile
 docker-compose.yaml
 .idea
+.env.local
+.env.prod
+.env.stg
 .env
 build
 dist
