@@ -10,6 +10,7 @@ type Player struct {
 	TeamId      *uuid.UUID `gorm:"type:uuid" json:"teamId" binding:"uuid"`
 	Team        Team
 	Name        string    `gorm:"size:100;not null" json:"name" binding:"required,max=100"`
+	LastName    string    `gorm:"size:100;not null" json:"lastName" binding:"required,max=100"`
 	Age         int       `gorm:"not null" json:"age" binding:"required"`
 	Address     string    `gorm:"size:100;not null" json:"address" binding:"required,max=100"`
 	Email       string    `gorm:"size:100;not null" json:"email" binding:"required,max=100, email"`
@@ -22,6 +23,7 @@ type Player struct {
 type CreatePlayerDto struct {
 	TeamId      *uuid.UUID `json:"teamId" binding:"uuid"`
 	Name        string     `json:"name" binding:"required,max=100"`
+	LastName    string     `json:"lastName"`
 	Age         int        `binding:"required"`
 	Address     string     `json:"address" binding:"required,max=100"`
 	Email       string     `json:"email" binding:"required,max=100, email"`
@@ -31,6 +33,7 @@ type CreatePlayerDto struct {
 
 type UpdatePlayerDto struct {
 	Name        string    `json:"name" binding:"required,max=100"`
+	LastName    string    `json:"lastName"`
 	Age         int       `binding:"required"`
 	Address     string    `json:"address" binding:"required,max=100"`
 	Email       string    `json:"email" binding:"required,max=100, email"`

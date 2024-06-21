@@ -23,7 +23,7 @@ type User struct {
 
 func NewUserService(userRepository *repositories.User) *User {
 	return &User{
-		repository: userRepository,
+		userRepository,
 	}
 }
 

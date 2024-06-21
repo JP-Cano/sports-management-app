@@ -3,9 +3,10 @@ package main
 import (
 	"github.com/JP-Cano/sports-management-app/src/adapters/controllers"
 	"github.com/JP-Cano/sports-management-app/src/adapters/repositories"
-	routes2 "github.com/JP-Cano/sports-management-app/src/adapters/routes"
+	"github.com/JP-Cano/sports-management-app/src/adapters/routes"
 	"github.com/JP-Cano/sports-management-app/src/application/config"
 	"github.com/JP-Cano/sports-management-app/src/application/services"
+	"github.com/JP-Cano/sports-management-app/src/application/services/file"
 	"github.com/JP-Cano/sports-management-app/src/infrastructure/database"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -50,24 +51,30 @@ func (s *Server) Run(addr string) {
 }
 
 func registerRoutes(r *gin.Engine, db *gorm.DB) {
-	userRepository := initializeRepositories(db)
-	userService := initializeServices(userRepository)
-	userController := initializeControllers(userService)
-	routes2.SetUpHealthCheck(r, db)
-	routes2.SetUpUser(r, userController)
+	userRepository, playerRepository := initializeRepositories(db)
+	userService, _, fileService := initializeServices(userRepository, playerRepository)
+	userController, fileController := initializeControllers(userService, fileService)
+
+	routes.SetUpHealthCheck(r, db)
+	routes.SetUpUser(r, userController)
+	routes.SetUpFile(r, fileController)
 }
 
-func initializeRepositories(db *gorm.DB) (userRepository *repositories.User) {
+func initializeRepositories(db *gorm.DB) (userRepository *repositories.User, playerRepository *repositories.Player) {
 	userRepository = repositories.NewUserRepository(db)
+	playerRepository = repositories.NewPlayerRepository(db)
 	return
 }
 
-func initializeServices(userRepository *repositories.User) (userService services.UserService) {
+func initializeServices(userRepository *repositories.User, playerRepository *repositories.Player) (userService services.UserService, playerService services.PlayerService, fileService file.ExcelService) {
 	userService = services.NewUserService(userRepository)
+	playerService = services.NewPlayerService(playerRepository)
+	fileService = file.NewPlayerService(playerService)
 	return
 }
 
-func initializeControllers(userService services.UserService) (userController *controllers.UserController) {
+func initializeControllers(userService services.UserService, fileService file.ExcelService) (userController *controllers.UserController, fileController *controllers.FileController) {
 	userController = controllers.NewUserController(userService)
+	fileController = controllers.NewFileController(fileService)
 	return
 }
