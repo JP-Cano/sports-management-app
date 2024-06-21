@@ -10,6 +10,7 @@ import (
 func main() {
 	server, err := NewServer()
 	defer database.Close(server.DB)
+	database.Migrate(server.DB)
 	if err != nil {
 		log.Fatalf("Error creating server: %v", err)
 	}

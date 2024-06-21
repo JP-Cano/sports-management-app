@@ -1,6 +1,7 @@
 package database
 
 import (
+	"github.com/JP-Cano/sports-management-app/src/core/entities"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
@@ -33,9 +34,9 @@ func Close(db *gorm.DB) {
 	return
 }
 
-func Migrate(db *gorm.DB, entities ...interface{}) {
+func Migrate(db *gorm.DB) {
 	createUUIDExtension(db)
-	err := db.AutoMigrate(entities)
+	err := db.AutoMigrate(entities.User{})
 	if err != nil {
 		log.Printf("Error auto migrating entities: %v", err.Error())
 		return
