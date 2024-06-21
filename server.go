@@ -3,10 +3,10 @@ package main
 import (
 	"github.com/JP-Cano/sports-management-app/src/adapters/controllers"
 	"github.com/JP-Cano/sports-management-app/src/adapters/repositories"
-	"github.com/JP-Cano/sports-management-app/src/config"
+	routes2 "github.com/JP-Cano/sports-management-app/src/adapters/routes"
+	"github.com/JP-Cano/sports-management-app/src/application/config"
+	"github.com/JP-Cano/sports-management-app/src/application/services"
 	"github.com/JP-Cano/sports-management-app/src/infrastructure/database"
-	"github.com/JP-Cano/sports-management-app/src/routes"
-	"github.com/JP-Cano/sports-management-app/src/services"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"log"
@@ -53,8 +53,8 @@ func registerRoutes(r *gin.Engine, db *gorm.DB) {
 	userRepository := initializeRepositories(db)
 	userService := initializeServices(userRepository)
 	userController := initializeControllers(userService)
-	routes.SetUpHealthCheck(r, db)
-	routes.SetUpUser(r, userController)
+	routes2.SetUpHealthCheck(r, db)
+	routes2.SetUpUser(r, userController)
 }
 
 func initializeRepositories(db *gorm.DB) (userRepository *repositories.User) {

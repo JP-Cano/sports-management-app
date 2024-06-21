@@ -3,7 +3,7 @@ package services
 import (
 	"github.com/JP-Cano/sports-management-app/src/adapters/repositories"
 	"github.com/JP-Cano/sports-management-app/src/core/entities"
-	"github.com/JP-Cano/sports-management-app/src/utils"
+	"github.com/JP-Cano/sports-management-app/src/infrastructure/utils"
 	"github.com/google/uuid"
 	"log"
 )

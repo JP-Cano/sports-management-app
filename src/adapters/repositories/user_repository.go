@@ -48,7 +48,7 @@ func (u *User) GetUserById(id uuid.UUID) (entities.User, error) {
 	var user entities.User
 	if err := u.DB.First(&user, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return entities.User{}, exceptions.NotFound
+			return entities.User{}, exceptions.Throw(exceptions.NotFound)
 		}
 		return entities.User{}, err
 	}
@@ -56,12 +56,15 @@ func (u *User) GetUserById(id uuid.UUID) (entities.User, error) {
 }
 
 func (u *User) DeleteUser(id uuid.UUID) error {
-	if err := u.DB.Delete(&entities.User{}, id).Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return exceptions.NotFound
-		}
-		return err
+	result := u.DB.Delete(&entities.User{}, id)
+	if result.Error != nil {
+		return result.Error
 	}
+
+	if result.RowsAffected == 0 {
+		return exceptions.Throw(exceptions.NotFound)
+	}
+
 	return nil
 }
 

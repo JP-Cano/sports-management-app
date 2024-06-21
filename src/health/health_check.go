@@ -1,7 +1,7 @@
 package health
 
 import (
-	"github.com/JP-Cano/sports-management-app/src/utils"
+	"github.com/JP-Cano/sports-management-app/src/infrastructure/utils"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"log"
@@ -21,8 +21,8 @@ func (hc *Check) Check() gin.HandlerFunc {
 		var dbStatus string
 
 		if err := hc.DB.Raw("SELECT 1").Scan(&dbStatus).Error; err != nil {
-			utils.ErrorResponse(c, http.StatusInternalServerError, "Internal server error")
 			log.Printf("Error connecting to database: %v", err.Error())
+			utils.ErrorResponse(c, http.StatusInternalServerError, nil)
 			return
 		}
 

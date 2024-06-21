@@ -25,16 +25,16 @@ type UserDto struct {
 }
 
 type CreateUserDto struct {
-	Name     string `json:"name"`
-	LastName string `json:"lastName"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Name     string `json:"name" binding:"required,max=100"`
+	LastName string `json:"lastName" binding:"required,max=100"`
+	Email    string `json:"email" binding:"required,max=100,email"`
+	Password string `json:"password" binding:"required,min=6,max=10"`
 }
 
 type UpdateUserDto struct {
-	Name     string `json:"name"`
-	LastName string `json:"lastName"`
-	Email    string `json:"email"`
+	Name     string `json:"name" binding:"required,max=100"`
+	LastName string `json:"lastName" binding:"required,max=100"`
+	Email    string `json:"email" binding:"required,max=100,email"`
 }
 
 // TODO: Add document number, date of birth, address, and other confidential fields

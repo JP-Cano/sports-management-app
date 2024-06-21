@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/JP-Cano/sports-management-app/src/config"
+	"github.com/JP-Cano/sports-management-app/src/application/config"
 	"github.com/JP-Cano/sports-management-app/src/infrastructure/database"
 	"log"
 )

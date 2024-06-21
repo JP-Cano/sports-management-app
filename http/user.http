@@ -1,3 +1,4 @@
+### Create
 POST localhost:8080/api/v1/users
 Content-Type: application/json
 
@@ -8,21 +9,17 @@ Content-Type: application/json
   "password": "123456"
 }
 
-###
-
+### Get All
 GET localhost:8080/api/v1/users
 
-###
+### Get By Id
+GET localhost:8080/api/v1/users/ef4e729b-6bf9-4c82-b51f-b902c94d5a8b
 
-GET localhost:8080/api/v1/users/9ffcf7f4-39a2-42cd-972f-19c8bd0eaf45
-
-###
-
+### Search
 GET localhost:8080/api/v1/users/search?q=ja
 
-###
-
-PATCH localhost:8080/api/v1/users/9ffcf7f4-39a2-42cd-972f-19c8bd0eaf45
+### Update
+PATCH localhost:8080/api/v1/users/ef4e729b-6bf9-4c82-b51f-b902c94d5a8b
 Content-Type: application/json
 
 {
@@ -31,6 +28,5 @@ Content-Type: application/json
   "email": "wolfman@email.com"
 }
 
-###
-
-DELETE localhost:8080/api/v1/users/9ffcf7f4-39a2-42cd-972f-19c8bd0eaf45
+### Delete
+DELETE localhost:8080/api/v1/users/ef4e729b-6bf9-4c82-b51f-b902c94d5a4b

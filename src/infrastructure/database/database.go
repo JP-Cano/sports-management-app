@@ -36,7 +36,7 @@ func Close(db *gorm.DB) {
 
 func Migrate(db *gorm.DB) {
 	createUUIDExtension(db)
-	err := db.AutoMigrate(entities.User{})
+	err := db.AutoMigrate(entities.User{}, entities.Player{}, entities.Team{}, entities.Measurement{})
 	if err != nil {
 		log.Printf("Error auto migrating entities: %v", err.Error())
 		return
