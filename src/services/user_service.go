@@ -14,7 +14,7 @@ type UserService interface {
 	SearchUsers(value string) ([]entities.UserDto, error)
 	DeleteUsers(id uuid.UUID) error
 	UpdateUser(id uuid.UUID, data entities.UpdateUserDto) error
-	GetUserById(id uuid.UUID) (*entities.UserDto, error)
+	GetUserById(id uuid.UUID) (entities.UserDto, error)
 }
 
 type User struct {
@@ -90,14 +90,14 @@ func (u *User) UpdateUser(id uuid.UUID, data entities.UpdateUserDto) error {
 	return nil
 }
 
-func (u *User) GetUserById(id uuid.UUID) (*entities.UserDto, error) {
+func (u *User) GetUserById(id uuid.UUID) (entities.UserDto, error) {
 	user, err := u.repository.GetUserById(id)
 	if err != nil {
 		log.Printf("Error getting user: %v", err.Error())
-		return nil, err
+		return entities.UserDto{}, err
 	}
 	log.Printf("User with Id: %s retrieved successfully", id.String())
-	return user, nil
+	return u.toUserDto(user), nil
 }
 
 func (u *User) toUsersDto(users []entities.User) []entities.UserDto {

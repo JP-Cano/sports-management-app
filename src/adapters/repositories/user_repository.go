@@ -37,20 +37,20 @@ func (u *User) GetAllUsers() ([]entities.User, error) {
 
 func (u *User) SearchUser(value string) ([]entities.User, error) {
 	var users []entities.User
-	if err := u.DB.Select(userPublicProperties).Where("name ILIKE ? OR last_name ILIKE ? OR email ILIKE ?", value, value, value).Find(&users).Error; err != nil {
+	if err := u.DB.Select(userPublicProperties).Where("name ILIKE ? OR last_name ILIKE ? OR email ILIKE ?", "%"+value+"%", "%"+value+"%", "%"+value+"%").Find(&users).Error; err != nil {
 		return nil, err
 	}
 
 	return users, nil
 }
 
-func (u *User) GetUserById(id uuid.UUID) (*entities.UserDto, error) {
-	var user *entities.UserDto
-	if err := u.DB.Select(userPublicProperties).First(&user, id).Error; err != nil {
+func (u *User) GetUserById(id uuid.UUID) (entities.User, error) {
+	var user entities.User
+	if err := u.DB.First(&user, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, exceptions.NotFound
+			return entities.User{}, exceptions.NotFound
 		}
-		return nil, err
+		return entities.User{}, err
 	}
 	return user, nil
 }

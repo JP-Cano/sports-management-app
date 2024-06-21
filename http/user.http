@@ -1,0 +1,36 @@
+POST localhost:8080/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "John",
+  "lastName": "Doe",
+  "email": "john@email.com",
+  "password": "123456"
+}
+
+###
+
+GET localhost:8080/api/v1/users
+
+###
+
+GET localhost:8080/api/v1/users/9ffcf7f4-39a2-42cd-972f-19c8bd0eaf45
+
+###
+
+GET localhost:8080/api/v1/users/search?q=ja
+
+###
+
+PATCH localhost:8080/api/v1/users/9ffcf7f4-39a2-42cd-972f-19c8bd0eaf45
+Content-Type: application/json
+
+{
+  "name": "Aquel",
+  "lastname": "doggy",
+  "email": "wolfman@email.com"
+}
+
+###
+
+DELETE localhost:8080/api/v1/users/9ffcf7f4-39a2-42cd-972f-19c8bd0eaf45

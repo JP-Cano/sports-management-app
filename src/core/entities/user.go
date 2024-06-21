@@ -10,7 +10,7 @@ type User struct {
 	Name      string    `gorm:"size:100;not null" json:"name"`
 	LastName  string    `gorm:"size:100;not null" json:"lastName"`
 	Email     string    `gorm:"size:100;not null;unique" json:"email"`
-	Password  string    `gorm:"size:100;not null" json:"-"`
+	Password  string    `gorm:"size:100;not null" json:"password"`
 	CreatedAt time.Time `gorm:"autoCreateTime" json:"createdAt"`
 	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updatedAt"`
 }
@@ -35,7 +35,6 @@ type UpdateUserDto struct {
 	Name     string `json:"name"`
 	LastName string `json:"lastName"`
 	Email    string `json:"email"`
-	Password string `json:"password"`
 }
 
 // TODO: Add document number, date of birth, address, and other confidential fields

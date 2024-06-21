@@ -33,6 +33,7 @@ func NewServer() (*Server, error) {
 	}
 
 	router := gin.Default()
+	router.Use(gin.Recovery())
 
 	registerRoutes(router, db)
 	return &Server{
