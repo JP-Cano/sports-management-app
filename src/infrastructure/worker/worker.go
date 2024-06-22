@@ -1,6 +1,9 @@
 package worker
 
-import "sync"
+import (
+	"log"
+	"sync"
+)
 
 type TaskFunc func(row []string) error
 
@@ -20,6 +23,7 @@ func New(numWorkers int, taskFunc TaskFunc, errorChan chan error) *Pool {
 }
 
 func (p *Pool) Start(tasks <-chan []string) {
+	log.Printf("Starting %d workers", p.numWorkers)
 	for i := 0; i < p.numWorkers; i++ {
 		p.wg.Add(1)
 		go p.worker(tasks)

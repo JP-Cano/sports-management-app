@@ -5,6 +5,7 @@ import (
 	"github.com/JP-Cano/sports-management-app/src/core/entities"
 	"github.com/JP-Cano/sports-management-app/src/infrastructure/utils"
 	"gorm.io/gorm"
+	"log"
 )
 
 type PlayerService interface {
@@ -21,6 +22,7 @@ func NewPlayerService(repository *repositories.Player) *Player {
 }
 
 func (p *Player) CreatePlayerBatch(row []string) error {
+	log.Println("Creating player batch...")
 	newPlayer := entities.Player{
 		Name:        row[0],
 		LastName:    row[1],
@@ -36,6 +38,7 @@ func (p *Player) CreatePlayerBatch(row []string) error {
 	if err != nil {
 		return err
 	}
+	log.Println("Created player batch successfully")
 	return nil
 }
 

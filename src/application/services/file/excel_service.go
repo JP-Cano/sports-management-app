@@ -22,6 +22,7 @@ func NewPlayerService(playerService services.PlayerService) *Excel {
 }
 
 func (e *Excel) ProcessExcel(data []byte) error {
+	log.Println("Start to process excel file")
 	f, err := excelize.OpenReader(bytes.NewReader(data))
 	if err != nil {
 		log.Printf("Excel Reader Error: %v\n", err)
